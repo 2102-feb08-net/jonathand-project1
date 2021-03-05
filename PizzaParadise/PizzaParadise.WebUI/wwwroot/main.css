@@ -1,6 +1,11 @@
-﻿/*.p-5 text-center bg-image {
-    background-image: url('1.jfif');
-    height: 400px;
-    margin-top: 58px;
+﻿body {
+    background-color: sandybrown
 }
-*/
+
+#welcome {
+    color: white;
+}
+
+h1{
+    text-decoration:underline;
+}
