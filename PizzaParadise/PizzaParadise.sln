@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaParadise.Library", "Pi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaParadise.Tests", "PizzaParadise.Tests\PizzaParadise.Tests.csproj", "{BD70E7F4-BCFC-469E-AD15-91C6DF1E6FBC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaParadise.WebUI", "PizzaParadise.WebUI\PizzaParadise.WebUI.csproj", "{C4E93B7E-89BF-43FF-A374-DF33FEC7525A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaParadise.WebUI", "PizzaParadise.WebUI\PizzaParadise.WebUI.csproj", "{C4E93B7E-89BF-43FF-A374-DF33FEC7525A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
