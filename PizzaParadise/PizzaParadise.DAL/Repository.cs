@@ -15,17 +15,38 @@ namespace PizzaParadise.DAL
     {
         static DbContextOptions<PizzaParadiseContext> options;
 
+        private readonly List<Product> menu = new()
+        {
+            new()
+            {
+                ProductId = 1,
+                ProductName = "Pepperoni Pizza",
+                ProductPrice = 8.99m
+            },
+                
+            new()
+            {
+                ProductId = 2,
+                ProductName = "Cheese Pizza",
+                ProductPrice = 8.99m
+            },
+        };
+
         public Repository()
         {
-            using var logStream = new StreamWriter("ef-logs.txt", append: false) { AutoFlush = true };
-            string connectionString = File.ReadAllText("C:/revature/jonathan-project1/Project1cs.txt");
-            options = new DbContextOptionsBuilder<PizzaParadiseContext>()
-                .UseSqlServer(connectionString)
-                .LogTo(logStream.WriteLine, minimumLevel: LogLevel.Information)
-                .LogTo(s => Debug.WriteLine(s), minimumLevel: LogLevel.Debug)
-                .Options;
+            //using var logStream = new StreamWriter("ef-logs.txt", append: false) { AutoFlush = true };
+            //string connectionString = File.ReadAllText("C:/revature/jonathan-project1/Project1cs.txt");
+            //options = new DbContextOptionsBuilder<PizzaParadiseContext>()
+            //    .UseSqlServer(connectionString)
+            //    .LogTo(logStream.WriteLine, minimumLevel: LogLevel.Information)
+            //    .LogTo(s => Debug.WriteLine(s), minimumLevel: LogLevel.Debug)
+            //    .Options;
         }
 
+        public IEnumerable<Product> List()
+        {
+            return menu;
+        }
         public List<Customer> GetAllCustomers()
         {
             using var context = new PizzaParadiseContext(options);
