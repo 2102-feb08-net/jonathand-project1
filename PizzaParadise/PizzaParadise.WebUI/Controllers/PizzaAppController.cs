@@ -28,5 +28,11 @@ namespace EmailApp.WebUI.Controllers
         {
             _repository.AddCustomer(customer);
         }
+
+        [HttpGet("api/customers")]
+        public IEnumerable<PizzaParadise.DAL.Customer> GetCustomers()
+        {
+            return _repository.GetAllCustomers();
+        }
     }
 }
