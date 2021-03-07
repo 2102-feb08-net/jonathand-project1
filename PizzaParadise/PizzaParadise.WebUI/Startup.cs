@@ -11,6 +11,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using PizzaParadise.DAL;
+using System.IO;
 
 namespace PizzaParadise.WebUI
 {
@@ -26,7 +29,12 @@ namespace PizzaParadise.WebUI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string connectionString = File.ReadAllText("C:/revature/Project1cs.txt");
 
+            services.AddDbContext<PizzaParadiseContext>(options =>
+            {
+                options.UseSqlServer(connectionString);
+            });
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PizzaParadise.DAL\PizzaParadise.DAL.csproj" />
-    <ProjectReference Include="..\PizzaParadise.Library\PizzaParadise.Library.csproj" />
   </ItemGroup>
 
 </Project>

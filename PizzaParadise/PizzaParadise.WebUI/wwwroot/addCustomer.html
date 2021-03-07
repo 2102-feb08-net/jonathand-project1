@@ -9,7 +9,7 @@
           integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link rel="stylesheet" href="public/CSS/style.css">
     <link rel="stylesheet" href="index.css">
-    <title>Pizza Paradise</title>
+    <title>Add A Customer</title>
 </head>
 <body>
     <header>
@@ -34,7 +34,7 @@
                             Manager Options
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="addCustomer.html">Create A Customer</a>
+                            <a class="dropdown-item" href="#">Create A Customer</a>
                             <a class="dropdown-item" href="#">Store Order History</a>
                             <a class="dropdown-item" href="#">Customer Order History</a>
                         </div>
@@ -44,36 +44,23 @@
         </nav>
     </header>
     <div class="d-flex justify-content-center">
-        <b class="menu">Food Menu</b>
+        <b>Add New Customer</b>
     </div>
     <div class="d-flex justify-content-center">
-        <table class="menu">
-            <thead>
-                <tr>
-                    <th scope="col">Product ID  </th>
-                    <th scope="col">Menu Item</th>
-                    <th scope="col">Price</th>
-                </tr>
-            </thead>
-            <tbody id="menuitems">
-            </tbody>
-        </table>
-    </div>
-    <div class="d-flex justify-content-center">
-        <b class="menu">Drink Menu</b>
-    </div>
-    <div class="d-flex justify-content-center">
-        <table class="menu">
-            <thead>
-                <tr>
-                    <th scope="col">Product ID  </th>
-                    <th scope="col">Menu Item</th>
-                    <th scope="col">Price</th>
-                </tr>
-            </thead>
-            <tbody id="drinkitems">
-            </tbody>
-        </table>
+        <form id="customer-input">
+            <label>
+                First Name
+                <input type="text" name="first">
+            </label>
+            <label>
+                Last Name
+                <input type="text" name="last">
+            </label>
+            <input type="submit" value="Submit">
+        </form>
+
+        <div id="success-message" hidden></div>
+        <div id="error-message" hidden></div>
     </div>
     <footer></footer>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

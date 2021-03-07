@@ -1,11 +1,15 @@
 ﻿body {
-    background-color: sandybrown
+    background-color:lightgoldenrodyellow;
 }
 
 #welcome {
     color: white;
 }
 
-h1{
+b{
     text-decoration:underline;
+}
+.menu{
+    font-family:'Comic Sans MS',Arial,serif;
+    font-size:x-large;
 }
