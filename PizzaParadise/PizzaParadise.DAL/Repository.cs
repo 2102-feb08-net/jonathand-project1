@@ -36,15 +36,37 @@ namespace PizzaParadise.DAL
 
             return entries;
         }
-        public Customer SearchCustomerByName(string first, string last)
+        public Customer GetCustomer(string first, string last)
         {
             using var context = new PizzaParadiseContext(_options);
-
-            Customer entry = context.Customers
+            Customer entry = new();
+            if(customerExists(first,last))
+            {
+                entry = context.Customers
                 .Select(c => c)
                 .Where(c => c.FirstName == first && c.LastName == last).First();
+            }
+            else
+            {
+                throw new ArgumentException("Customer does not exist");
+            }
 
             return entry;
+        }
+
+        public bool customerExists(string first, string last)
+        {
+            using var context = new PizzaParadiseContext(_options);
+            List<Customer> customers = GetAllCustomers();
+            bool exists = false;
+            foreach(Customer c in customers)
+            {
+                if(c.FirstName == first && c.LastName == last)
+                {
+                    exists = true;
+                }
+            }
+            return exists;
         }
         public String GetCustomerNameById(int id)
         {

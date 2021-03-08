@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
           integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link rel="stylesheet" href="main.css">
-    <title>Add A Customer</title>
+    <title>Place An Order</title>
 </head>
 <body>
     <header>
@@ -35,7 +35,7 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="customer.html">Create A Customer</a>
                             <a class="dropdown-item" href="storeorders.html">Store Order History</a>
-                            <a class="dropdown-item" href="customerorder.html">Customer Order History</a>
+                            <a class="dropdown-item" href="customerorders.html">Customer Order History</a>
                         </div>
                     </li>
                 </ul>
@@ -44,7 +44,7 @@
     </header>
     <main>
         <div class="d-flex justify-content-center">
-            <b>Add New Customer</b>
+            <b>Make An Order</b>
         </div>
         <div class="d-flex justify-content-center">
             <form id="customer-input">
@@ -64,21 +64,6 @@
             <p id="success-message" hidden></p>
             <p id="error-message" hidden></p>
         </div>
-        <div class="d-flex justify-content-center">
-            <b>Customer List</b>
-        </div>
-        <div class="d-flex justify-content-center">
-            <table>
-                <thead>
-                    <tr>
-                        <th scope="col">First Name</th>
-                        <th scope="col">Last Name</th>
-                    </tr>
-                </thead>
-                <tbody id="customer-list">
-                </tbody>
-            </table>
-        </div>
     </main>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -87,7 +72,7 @@
             integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
             crossorigin="anonymous"></script>
     <script src="main.js"></script>
-    <script src="customer.js"></script>
+    <script src="order.js"></script>
 </body>
 
 </html>

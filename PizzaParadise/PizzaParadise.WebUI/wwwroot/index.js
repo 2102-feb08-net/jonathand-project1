@@ -3,12 +3,6 @@
 const menuItems = document.getElementById('menuitems');
 const drinkItems = document.getElementById('drinkitems');
 
-function addMenuItems() {
-    return fetch('/api/products')
-        .then(response => {
-            return response.json();
-        });
-}
 //debugger;
 addMenuItems()
     .then(menu => {

@@ -34,5 +34,11 @@ namespace EmailApp.WebUI.Controllers
         {
             return _repository.GetAllCustomers();
         }
+
+        [HttpGet("api/search-customer/{first,last}")]
+        public PizzaParadise.DAL.Customer getCustomer(string first, string last)
+        {
+            return _repository.GetCustomer(first,last);
+        }
     }
 }

@@ -9,7 +9,13 @@
 b{
     text-decoration:underline;
 }
-.menu{
+main{
     font-family:'Comic Sans MS',Arial,serif;
     font-size:x-large;
+}
+
+table,
+th,
+td{
+    border: 1px solid black
 }

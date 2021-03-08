@@ -3,31 +3,19 @@
 const customerInput = document.getElementById('customer-input');
 const errorMessage = document.getElementById('error-message');
 const successMessage = document.getElementById('success-message');
+const customerList = document.getElementById('customer-list');
 
-function addCustomer(customer) {
-    return fetch('/api/add-customer', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(customer)
-    }).then(response => {
-        if (!response.ok) {
-            throw new Error(`Customer cannot be added`);
+getCustomers()
+    .then(customers => {
+        for (const customer of customers) {
+            const row = customerList.insertRow();
+            row.innerHTML = `<td>${customer.firstName}</td>
+                 <td>${customer.lastName}</td>`;
         }
     });
-}
-
-function getCustomers() {
-    return fetch('/api/customers')
-        .then(response => {
-            return response.json();
-        });
-}
 
 customerInput.addEventListener('submit', event => {
     event.preventDefault();
-
     successMessage.hidden = true;
     errorMessage.hidden = true;
 
@@ -41,9 +29,15 @@ customerInput.addEventListener('submit', event => {
         .then(() => {
             successMessage.textContent = 'Customer added sent successfully';
             successMessage.hidden = false;
+            const row = customerList.insertRow();
+            row.innerHTML = `<td>${customer.firstName}</td>
+                 <td>${customer.lastName}</td>`;
         })
         .catch(error => {
             errorMessage.textContent = error.toString();
             errorMessage.hidden = false;
-        });
+        })
 });
+
+
+
