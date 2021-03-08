@@ -40,5 +40,18 @@ namespace EmailApp.WebUI.Controllers
         {
             return _repository.GetCustomer(first,last);
         }
+
+        [HttpGet("api/stores")]
+        public IEnumerable<PizzaParadise.DAL.Store> GetStores()
+        {
+            return _repository.GetStores();
+        }
+
+        [HttpGet("api/get-store/{id}")]
+        public PizzaParadise.DAL.Store getStore(int id)
+        {
+            return _repository.getStore(id);
+        }
+
     }
 }

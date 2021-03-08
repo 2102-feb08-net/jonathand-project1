@@ -13,6 +13,7 @@ function addMenuItems() {
         });
 }
 function getCustomer(first, last) {
+    //debugger;
     return fetch(`api/search-customer/${first}/${last}`, {
         method: 'GET',
         headers: {
@@ -37,4 +38,18 @@ function addCustomer(customer) {
             throw new Error(`Customer cannot be added`);
         }
     });
+}
+
+function getStores() {
+    return fetch('/api/stores')
+        .then(response => {
+            return response.json();
+        });
+}
+
+function getStore(id) {
+    return fetch(`/api/get-store/${id}`)
+        .then(response => {
+            return response.json();
+        });
 }

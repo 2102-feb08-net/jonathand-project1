@@ -47,6 +47,7 @@
             <b>Make An Order</b>
         </div>
         <div class="d-flex justify-content-center">
+            <b>Enter Customer: </b>
             <form id="customer-input">
                 <label>
                     First Name
@@ -56,7 +57,7 @@
                     Last Name
                     <input type="text" name="last">
                 </label>
-                <input type="submit" value="Submit">
+                <input type="submit" value="Add">
             </form>
             <br>
         </div>
@@ -65,7 +66,12 @@
             <p id="error-message" hidden></p>
         </div>
         <div class="d-flex justify-content-center">
-            <p id="customer-result"></p>
+            <form id="store-input">
+                <label for="store"><b>Select Store</b></label>
+                <select name="store" id="store">
+                </select>
+            </form>
+            <br>
         </div>
     </main>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

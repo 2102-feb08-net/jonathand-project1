@@ -187,6 +187,24 @@ namespace PizzaParadise.DAL
             context.SaveChanges();
         }
 
+        public List<Store> GetStores()
+        {
+            using var context = new PizzaParadiseContext(_options);
+
+            List<Store> entries = context.Stores
+                .Select(s => s).ToList();
+            return entries;
+        }
+
+        public Store getStore(int id)
+        {
+            using var context = new PizzaParadiseContext(_options);
+
+            Store entry = context.Stores
+                .Select(s => s)
+                .Where(s => s.StoreId == id).First();
+            return entry;
+        }
 
         public List<OrderLine> GetOrderDetailsByOrderId(int id)
         {
