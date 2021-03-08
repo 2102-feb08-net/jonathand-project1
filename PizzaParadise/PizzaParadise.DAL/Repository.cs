@@ -1,36 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Security;
-using System.Xml.Serialization;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using System.Diagnostics;
-using PizzaParadise.Library;
 
 namespace PizzaParadise.DAL
 {
-    public class Repository
+    public class Repository : IRepository
     {
-        private readonly DbContextOptions<PizzaParadiseContext> _options;
+        private readonly PizzaParadiseContext context;
 
-        public Repository()
+        public Repository(PizzaParadiseContext _context)
         {
-            using var logStream = new StreamWriter("ef-logs.txt", append: false) { AutoFlush = true };
-            string connectionString = File.ReadAllText("C:/revature/Project1cs.txt");
-            _options = new DbContextOptionsBuilder<PizzaParadiseContext>()
-                .UseSqlServer(connectionString)
-                .LogTo(logStream.WriteLine, minimumLevel: LogLevel.Information)
-                .LogTo(s => Debug.WriteLine(s), minimumLevel: LogLevel.Debug)
-                .Options;
-
+            //using var logStream = new StreamWriter("ef-logs.txt", append: false) { AutoFlush = true };
+            //string connectionString = File.ReadAllText("C:/revature/Project1cs.txt");
+            //_options = new DbContextOptionsBuilder<PizzaParadiseContext>()
+            //    .UseSqlServer(connectionString)
+            //    .LogTo(logStream.WriteLine, minimumLevel: LogLevel.Information)
+            //    .LogTo(s => Debug.WriteLine(s), minimumLevel: LogLevel.Debug)
+            //    .Options;
+            context = _context;
         }
 
         public List<Customer> GetAllCustomers()
         {
-            using var context = new PizzaParadiseContext(_options);
-
             List<Customer> entries = context.Customers
                    .Select(x => x).ToList();
 
@@ -38,7 +29,6 @@ namespace PizzaParadise.DAL
         }
         public Customer GetCustomer(string first, string last)
         {
-            using var context = new PizzaParadiseContext(_options);
             Customer entry = new();
             if(customerExists(first,last))
             {
@@ -56,7 +46,6 @@ namespace PizzaParadise.DAL
 
         public bool customerExists(string first, string last)
         {
-            using var context = new PizzaParadiseContext(_options);
             List<Customer> customers = GetAllCustomers();
             bool exists = false;
             foreach(Customer c in customers)
@@ -70,8 +59,6 @@ namespace PizzaParadise.DAL
         }
         public String GetCustomerNameById(int id)
         {
-            using var context = new PizzaParadiseContext(_options);
-
             Customer entry = context.Customers
                 .Select(c => c)
                 .Where(c => c.CustomerId == id).First();
@@ -80,9 +67,6 @@ namespace PizzaParadise.DAL
         }
         public void AddCustomer(Customer customer)
         {
-            using var context = new PizzaParadiseContext(_options);
-
-
             var entry = new Customer
             {
                 FirstName = customer.FirstName,
@@ -105,8 +89,6 @@ namespace PizzaParadise.DAL
         }
         public List<Product> GetAllProducts()
         {
-            using var context = new PizzaParadiseContext(_options);
-
             List<Product> entries = context.Products
                    .Select(x => x).ToList();
 
@@ -115,8 +97,6 @@ namespace PizzaParadise.DAL
 
         public Product GetProductById(int ProductId)
         {
-            using var context = new PizzaParadiseContext(_options);
-
             Product product = context.Products
                 .Select(p => p)
                 .Where(p => p.ProductId == ProductId).First();
@@ -124,7 +104,6 @@ namespace PizzaParadise.DAL
         }
         public void AddProductToOrder(Product p, int quantity)
         {
-            using var context = new PizzaParadiseContext(_options);
             Order o = GetLastOrder();
             Inventory entry = context.Inventories
                 .Select(x => x)
@@ -153,9 +132,6 @@ namespace PizzaParadise.DAL
         }
         public void CreateOrder(int CustomerId, int StoreId)
         {
-            using var context = new PizzaParadiseContext(_options);
-
-
             var entry = new Order
             {
                 CustomerId = CustomerId,
@@ -171,7 +147,6 @@ namespace PizzaParadise.DAL
 
         public void AddTotalToOrder()
         {
-            using var context = new PizzaParadiseContext(_options);
             Order or = GetLastOrder();
             decimal total = 0;
             List<OrderLine> entries = context.OrderLines
@@ -189,8 +164,6 @@ namespace PizzaParadise.DAL
 
         public List<Store> GetStores()
         {
-            using var context = new PizzaParadiseContext(_options);
-
             List<Store> entries = context.Stores
                 .Select(s => s).ToList();
             return entries;
@@ -198,8 +171,6 @@ namespace PizzaParadise.DAL
 
         public Store getStore(int id)
         {
-            using var context = new PizzaParadiseContext(_options);
-
             Store entry = context.Stores
                 .Select(s => s)
                 .Where(s => s.StoreId == id).First();
@@ -208,8 +179,6 @@ namespace PizzaParadise.DAL
 
         public List<OrderLine> GetOrderDetailsByOrderId(int id)
         {
-            using var context = new PizzaParadiseContext(_options);
-
             List<OrderLine> entries = context.OrderLines
                 .Select(o => o)
                 .Where(o => o.OrderId == id).ToList();
@@ -218,8 +187,6 @@ namespace PizzaParadise.DAL
 
         public List<Order> GetOrdersByLocation(int locationId)
         {
-            using var context = new PizzaParadiseContext(_options);
-
             List<Order> entries = context.Orders
                 .Select(o => o)
                 .Where(o => o.StoreId == locationId).ToList();
@@ -228,8 +195,6 @@ namespace PizzaParadise.DAL
         }
         public List<Order> GetCustomerOrdersById(int customerId)
         {
-            using var context = new PizzaParadiseContext(_options);
-
             List<Order> entries = context.Orders
                 .Select(o => o)
                 .Where(o => o.CustomerId == customerId).ToList();
@@ -239,15 +204,12 @@ namespace PizzaParadise.DAL
 
         public Order GetLastOrder()
         {
-            using var context = new PizzaParadiseContext(_options);
-
             Order last = context.Orders
                 .OrderByDescending(o => o.OrderId).First();
             return last;
         }
         public List<OrderLine> GetLastOrderDetails()
         {
-            using var context = new PizzaParadiseContext(_options);
             Order last = GetLastOrder();
 
             List<OrderLine> entries = context.OrderLines

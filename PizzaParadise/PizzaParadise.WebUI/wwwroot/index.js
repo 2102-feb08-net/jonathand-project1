@@ -3,7 +3,7 @@
 const menuItems = document.getElementById('menuitems');
 const drinkItems = document.getElementById('drinkitems');
 
-//debugger;
+debugger;
 addMenuItems()
     .then(menu => {
         for (const item of menu) {

@@ -3,52 +3,52 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using PizzaParadise.DAL;
-using Microsoft.AspNetCore.Http;
+using System;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EmailApp.WebUI.Controllers
+namespace PizzaParadise.WebUI.Controllers
 {
     [ApiController]
     public class PizzaAppController : ControllerBase
     {
-        private readonly PizzaParadise.DAL.Repository _repository;
+        private readonly IRepository _repository;
 
-        public PizzaAppController()
+        public PizzaAppController(IRepository repository)
         {
-            _repository = new PizzaParadise.DAL.Repository();
+            _repository = repository;
         }
 
         [HttpGet("api/products")]
-        public IEnumerable<PizzaParadise.DAL.Product> GetProducts()
+        public IEnumerable<Product> GetProducts()
         {
             return _repository.GetAllProducts();
         }
         [HttpPost("api/add-customer")]
-        public void addNewCustomer(PizzaParadise.DAL.Customer customer)
+        public void addNewCustomer(Customer customer)
         {
             _repository.AddCustomer(customer);
         }
 
         [HttpGet("api/customers")]
-        public IEnumerable<PizzaParadise.DAL.Customer> GetCustomers()
+        public IEnumerable<Customer> GetCustomers()
         {
             return _repository.GetAllCustomers();
         }
 
         [HttpGet("api/search-customer/{first}/{last}")]
-        public PizzaParadise.DAL.Customer getCustomer(string first, string last)
+        public Customer getCustomer(string first, string last)
         {
-            return _repository.GetCustomer(first,last);
+            return _repository.GetCustomer(first, last);
         }
 
         [HttpGet("api/stores")]
-        public IEnumerable<PizzaParadise.DAL.Store> GetStores()
+        public IEnumerable<Store> GetStores()
         {
             return _repository.GetStores();
         }
 
         [HttpGet("api/get-store/{id}")]
-        public PizzaParadise.DAL.Store getStore(int id)
+        public Store getStore(int id)
         {
             return _repository.getStore(id);
         }
