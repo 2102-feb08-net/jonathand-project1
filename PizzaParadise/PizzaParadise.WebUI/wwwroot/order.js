@@ -3,7 +3,7 @@
 const customerInput = document.getElementById('customer-input');
 const errorMessage = document.getElementById('error-message');
 const successMessage = document.getElementById('success-message');
-
+const customerResult = document.getElementById('customer-result');
 
 customerInput.addEventListener('submit', event => {
     event.preventDefault();
@@ -12,9 +12,15 @@ customerInput.addEventListener('submit', event => {
 
     const firstName = customerInput.elements['first'].value;
     const lastName = customerInput.elements['last'].value;
+    
     getCustomer(firstName, lastName)
         .then(customer => {
-            const row = menuItems.insertRow();
-            row.innerHTML = `<p>${item.productId}</p>
-        });
+            successMessage.textContent = 'Customer Exists!';
+            successMessage.hidden = false;
+        })
+        .catch(error => {
+            errorMessage.textContent = error.toString();
+            errorMessage.hidden = false;
+        })
 });
+

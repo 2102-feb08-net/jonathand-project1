@@ -91,9 +91,9 @@ namespace PizzaParadise.DAL
 
             List <Customer> customerList = GetAllCustomers();
 
-            foreach(Customer c in customerList)
+            foreach (Customer c in customerList)
             {
-                if(c.FirstName == entry.FirstName && c.LastName == entry.LastName)
+                if (c.FirstName == entry.FirstName && c.LastName == entry.LastName)
                 {
                     throw new ArgumentException("Customer Already Exists", nameof(entry));
                 }
