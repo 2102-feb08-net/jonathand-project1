@@ -53,5 +53,10 @@ namespace PizzaParadise.WebUI.Controllers
             return _repository.getStore(id);
         }
 
+        [HttpPost("api/order{customerId}/{storeId}")]
+        public void createOrder(int customerId, int storeId)
+        {
+            _repository.CreateOrder(customerId, storeId);
+        }
     }
 }

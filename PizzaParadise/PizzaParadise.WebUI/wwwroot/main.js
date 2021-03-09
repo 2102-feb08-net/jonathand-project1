@@ -21,7 +21,7 @@ function getCustomer(first, last) {
         },
     }).then(response => {
         if (!response.ok) {
-            throw new Error(`Customer not in List`);
+            throw new Error(`Customer cannot be added`);
         }
         return response.json();
     });
@@ -51,5 +51,20 @@ function getStore(id) {
     return fetch(`/api/get-store/${id}`)
         .then(response => {
             return response.json();
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error(`Store not in List`);
+            }
         });
+}
+
+function createOrder(customerId, storeId) {
+    return fetch(`/api/order/${customerId}/${storeId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(customer)
+    })
+        return response.json();
 }

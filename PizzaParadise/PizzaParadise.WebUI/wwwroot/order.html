@@ -62,18 +62,69 @@
             <br>
         </div>
         <div class="d-flex justify-content-center">
-            <p id="success-message" hidden></p>
-            <p id="error-message" hidden></p>
-        </div>
-        <div class="d-flex justify-content-center">
-            <form id="store-input">
-                <label for="store"><b>Select Store</b></label>
+            <form id="store-selection">
+                <label for="store"><b>Store Options</b></label>
                 <select name="store" id="store">
                 </select>
             </form>
-            <br>
+            <!--<form id="store-input">
+            <label>
+                <b>Enter Store ID</b>
+                <input type="text" size="3px" name="store-id">
+            </label>
+            <input type="submit" value="Add">
+        </form>-->
+        </div>
+        <div class="d-flex justify-content-center">
+            <form id="product-selection">
+                <label for="products"><b>Add Products</b></label>
+                <select name="products" id="products">
+                </select>
+            </form>
+            <form id="quantity-input">
+            <label>
+                <b>Enter Quantity</b>
+                <input type="text" size="3px" name="store-id">
+            </label>
+            <input type="submit" value="Add">
+        </form>
         </div>
     </main>
+    <div class="d-flex justify-content-center">
+        <b>Order Details</b>
+    </div>
+    <div class="d-flex justify-content-center">
+        <span id="customer"></span>
+    </div>
+    <br />
+    <div class="d-flex justify-content-center">
+        <span id="store-name"></span>
+    </div>
+    <br />
+    <div class="d-flex justify-content-center">
+        <span id="time">Time: </span>
+    </div>
+    <br />
+    <div class="d-flex justify-content-center">
+        <b>Item List</b>
+    </div>
+    <div class="d-flex justify-content-center">
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">Product ID  </th>
+                    <th scope="col">Menu Item</th>
+                    <th scope="col">Price</th>
+                </tr>
+            </thead>
+            <tbody id="items">
+            </tbody>
+        </table>
+    </div>
+    <div class="d-flex justify-content-center">
+        <span id="total">Total: </span>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
             crossorigin="anonymous"></script>
