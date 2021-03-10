@@ -31,7 +31,7 @@ CREATE TABLE PizzaApp.[Order]
 	CustomerID INT NOT NULL,
 	StoreID INT NOT NULL,
 	OrderTotal NUMERIC(10,2),
-	OrderDate DATETIMEOFFSET NOT NULL,
+	OrderDate DATETIMEOFFSET,
     CONSTRAINT PK_Order PRIMARY KEY CLUSTERED (OrderId)
 );
 GO
@@ -197,3 +197,4 @@ INSERT INTO PizzaApp.Inventory VALUES (14,200,5);
 INSERT INTO PizzaApp.Inventory VALUES (15,200,5);
 INSERT INTO PizzaApp.Inventory VALUES (16,200,5);
 INSERT INTO PizzaApp.Inventory VALUES (17,200,5);
+
