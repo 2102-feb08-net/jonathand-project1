@@ -20,6 +20,10 @@ namespace PizzaParadise.DAL
             context = _context;
         }
 
+        /// <summary>
+        /// Gets a list of all of the customers in the database.
+        /// </summary>
+        /// <returns>Returns a list of the customers found in the database.</returns>
         public List<Customer> GetAllCustomers()
         {
             List<Customer> entries = context.Customers
@@ -27,10 +31,17 @@ namespace PizzaParadise.DAL
 
             return entries;
         }
+
+        /// <summary>
+        /// Gets the customer with the specified first and last name.
+        /// </summary>
+        /// <param name="first">The first name of the customer.</param>
+        /// <param name="last">The last name of the customer.</param>
+        /// <returns>Returns the custome found.</returns>
         public Customer GetCustomer(string first, string last)
         {
             Customer entry = new();
-            if(customerExists(first,last))
+            if (customerExists(first, last))
             {
                 entry = context.Customers
                 .Select(c => c)
@@ -44,19 +55,31 @@ namespace PizzaParadise.DAL
             return entry;
         }
 
+        /// <summary>
+        /// Checks if a customer with the specified first and last name exists.
+        /// </summary>
+        /// <param name="first">The first name of the customer.</param>
+        /// <param name="last">The last name of the customer.</param>
+        /// <returns>Returns True if the customer is found, false otherwise.</returns>
         public bool customerExists(string first, string last)
         {
             List<Customer> customers = GetAllCustomers();
             bool exists = false;
-            foreach(Customer c in customers)
+            foreach (Customer c in customers)
             {
-                if(c.FirstName == first && c.LastName == last)
+                if (c.FirstName == first && c.LastName == last)
                 {
                     exists = true;
                 }
             }
             return exists;
         }
+
+        /// <summary>
+        /// Gets a customer's name based on their Id.
+        /// </summary>
+        /// <param name="id">The id of the customer.</param>
+        /// <returns>Returns the full name of the customer formated with a space between the first and last name.</returns>
         public String GetCustomerNameById(int id)
         {
             Customer entry = context.Customers
@@ -65,6 +88,11 @@ namespace PizzaParadise.DAL
 
             return entry.FirstName + " " + entry.LastName;
         }
+
+        /// <summary>
+        /// Add a customer to the database.
+        /// </summary>
+        /// <param name="customer"></param>
         public void AddCustomer(Customer customer)
         {
             var entry = new Customer
@@ -73,7 +101,7 @@ namespace PizzaParadise.DAL
                 LastName = customer.LastName
             };
 
-            List <Customer> customerList = GetAllCustomers();
+            List<Customer> customerList = GetAllCustomers();
 
             foreach (Customer c in customerList)
             {
@@ -87,6 +115,11 @@ namespace PizzaParadise.DAL
 
             context.SaveChanges();
         }
+
+        /// <summary>
+        /// Get all of the products in the database.
+        /// </summary>
+        /// <returns></returns>
         public List<Product> GetAllProducts()
         {
             List<Product> entries = context.Products
@@ -95,6 +128,11 @@ namespace PizzaParadise.DAL
             return entries;
         }
 
+        /// <summary>
+        /// Get the product with the specified product Id.
+        /// </summary>
+        /// <param name="ProductId">The Id of the product.</param>
+        /// <returns>Returns a product object with the Id.</returns>
         public Product GetProductById(int ProductId)
         {
             Product product = context.Products
@@ -102,6 +140,12 @@ namespace PizzaParadise.DAL
                 .Where(p => p.ProductId == ProductId).First();
             return product;
         }
+
+        /// <summary>
+        /// Adds a product with the specified quantity to the order.
+        /// </summary>
+        /// <param name="p">The product to add to the order.</param>
+        /// <param name="quantity">The quantity to add.</param>
         public void AddProductToOrder(Product p, int quantity)
         {
             Order o = GetLastOrder();
@@ -130,6 +174,12 @@ namespace PizzaParadise.DAL
 
             context.SaveChanges();
         }
+
+        /// <summary>
+        /// Creates an order with the specified customer and store Id.
+        /// </summary>
+        /// <param name="CustomerId">The Id of the customer.</param>
+        /// <param name="StoreId">The Id of the store.</param>
         public void CreateOrder(int CustomerId, int StoreId)
         {
             var entry = new Order
@@ -139,12 +189,14 @@ namespace PizzaParadise.DAL
                 OrderDate = DateTime.Now
             };
 
-
             context.Add(entry);
 
             context.SaveChanges();
         }
 
+        /// <summary>
+        /// Calculates and sets the order total for the last order created.
+        /// </summary>
         public void AddTotalToOrder()
         {
             Order or = GetLastOrder();
@@ -162,6 +214,10 @@ namespace PizzaParadise.DAL
             context.SaveChanges();
         }
 
+        /// <summary>
+        /// Gets all of the stores in the database.
+        /// </summary>
+        /// <returns>Returns a list of stores in</returns>
         public List<Store> GetStores()
         {
             List<Store> entries = context.Stores
@@ -169,6 +225,11 @@ namespace PizzaParadise.DAL
             return entries;
         }
 
+        /// <summary>
+        /// Gets the store with the specified Id.
+        /// </summary>
+        /// <param name="id">The Id of the store.</param>
+        /// <returns>Returns the store with the Id.</returns>
         public Store getStore(int id)
         {
             Store entry = context.Stores
@@ -177,6 +238,11 @@ namespace PizzaParadise.DAL
             return entry;
         }
 
+        /// <summary>
+        /// Gets all of the orderlines with the specified order Id.
+        /// </summary>
+        /// <param name="id">The Id of the order.</param>
+        /// <returns>Returns a list of orderlines.</returns>
         public List<OrderLine> GetOrderDetailsByOrderId(int id)
         {
             List<OrderLine> entries = context.OrderLines
@@ -185,6 +251,11 @@ namespace PizzaParadise.DAL
             return entries;
         }
 
+        /// <summary>
+        /// Gets all orders from a specified store location.
+        /// </summary>
+        /// <param name="locationId">The Id of the store location.</param>
+        /// <returns>Returns a list of orders form the stor location</returns>
         public List<Order> GetOrdersByLocation(int locationId)
         {
             List<Order> entries = context.Orders
@@ -193,6 +264,12 @@ namespace PizzaParadise.DAL
 
             return entries;
         }
+
+        /// <summary>
+        /// Gets all orders from a specified customer.
+        /// </summary>
+        /// <param name="customerId">The Id of the customer.</param>
+        /// <returns>Returns a list of orders.</returns>
         public List<Order> GetCustomerOrdersById(int customerId)
         {
             List<Order> entries = context.Orders
@@ -202,12 +279,21 @@ namespace PizzaParadise.DAL
             return entries;
         }
 
+        /// <summary>
+        /// Gets last order made, which is the order with the highest order Id.
+        /// </summary>
+        /// <returns>Returns the last order Id.</returns>
         public Order GetLastOrder()
         {
             Order last = context.Orders
                 .OrderByDescending(o => o.OrderId).First();
             return last;
         }
+
+        /// <summary>
+        /// Gets the details of the last order.
+        /// </summary>
+        /// <returns>Returns a list of orderlines for the order.</returns>
         public List<OrderLine> GetLastOrderDetails()
         {
             Order last = GetLastOrder();
@@ -216,7 +302,6 @@ namespace PizzaParadise.DAL
                 .Select(o => o)
                 .Where(o => o.OrderId == last.OrderId).ToList();
             return entries;
-
         }
 
         //public Order GetOrderById(int id)
