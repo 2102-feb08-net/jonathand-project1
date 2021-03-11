@@ -1,0 +1,81 @@
+# ASP.NET
+# Build and test ASP.NET projects.
+# Add steps that publish symbols, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
+
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+- task: UseDotNet@2
+  displayName: dotnet sdk
+  inputs:
+    packageType: 'sdk'
+    version: '5.0.x'
+
+- task: UseDotNet@2
+  inputs:
+    packageType: 'runtime'
+    version: '2.x'
+
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'SonarCloud'
+    organization: '2102-feb08-net'
+    scannerMode: 'MSBuild'
+    projectKey: '2102-feb08-net_jonathand-project1'
+    projectName: 'jonathand-project1'
+
+- script: dotnet build --configuration $(buildConfiguration)
+  displayName: dotnet build
+  workingDirectory: 'PizzaParadise'
+
+- task: DotNetCoreCLI@2
+  displayName: dotnet test
+  inputs:
+    command: 'test'
+    arguments: '--configuration $(buildConfiguration) --collect "xplat code coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura,opencover'
+    workingDirectory: 'PizzaParadise'
+
+- task: DotNetCoreCLI@2
+  displayName: dotnet test
+  inputs:
+    command: 'test'
+    arguments: '--configuration $(buildConfiguration) --collect "xplat code coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura,opencover'
+    workingDirectory: 'PizzaParadise'
+
+- task: SonarCloudAnalyze@1
+  displayName: sonar run analysis
+
+- task: SonarCloudPublish@1
+  displayName: publish sonar quality gate
+  inputs:
+    pollingTimeoutSec: '300'
+
+- task: PublishCodeCoverageResults@1
+  displayName: publish code coverage report
+  inputs:
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: '$(Agent.TempDirectory)/*/coverage.cobertura.xml'
+
+- task: DotNetCoreCLI@2
+  displayName: dotnet publish
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: 'PizzaParadise/PizzaParadise.WebUI'
+    zipAfterPublish: true
+
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Azure subscription 1(8746079d-3f43-492c-8d64-579d3ac489df)'
+    appType: 'webApp'
+    WebAppName: 'PizzaParadise'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
