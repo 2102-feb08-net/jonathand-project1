@@ -30,8 +30,9 @@ customerInput.addEventListener('submit', event => {
 getStores()
     .then(stores => {
         for (const store of stores) {
-            storeSelection.append(new Option(`${store.storeName}`));
+            storeSelection.append(new Option(`${store.storeName}`), store.storeId);
         }
+
     });
 
 //storeInput.addEventListener('click', event => {

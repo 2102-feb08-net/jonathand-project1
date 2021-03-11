@@ -10,13 +10,7 @@ namespace PizzaParadise.DAL
 
         public Repository(PizzaParadiseContext _context)
         {
-            //using var logStream = new StreamWriter("ef-logs.txt", append: false) { AutoFlush = true };
-            //string connectionString = File.ReadAllText("C:/revature/Project1cs.txt");
-            //_options = new DbContextOptionsBuilder<PizzaParadiseContext>()
-            //    .UseSqlServer(connectionString)
-            //    .LogTo(logStream.WriteLine, minimumLevel: LogLevel.Information)
-            //    .LogTo(s => Debug.WriteLine(s), minimumLevel: LogLevel.Debug)
-            //    .Options;
+
             context = _context;
         }
 
